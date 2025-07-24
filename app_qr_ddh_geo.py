@@ -56,7 +56,7 @@ if uploaded_excel:
         img_final.paste(qr, (0, alto_texto + 20))
 
         # Mostrar
-        st.image(img_final, caption="Vista previa del QR generado", use_column_width=False)
+        st.image(img_final, caption="Vista previa del QR generado", use_container_width=False)
 
 if uploaded_excel and uploaded_pdfs:
     df = pd.read_excel(uploaded_excel)
