@@ -9,9 +9,8 @@ import json
 from PIL import Image, ImageDraw, ImageFont
 import tempfile
 import zipfile
-import io
 
-st.title("🧭 Generador de QR + Inserción en PDFs (DDH) v2")
+st.title("🧭 Generador de QR + Inserción en PDFs (DDH) v2.0")
 
 # Subida de archivos
 uploaded_excel = st.file_uploader("📥 Sube tu archivo Excel con la lista de proyectos", type=["xlsx"])
@@ -31,14 +30,15 @@ if uploaded_excel:
         texto = f"{fila['Cod Sondaje']} | {fila['Veta']} | {fila['Nivel']}"
         fuente = ImageFont.truetype("Arial.ttf", 28) if os.path.exists("Arial.ttf") else ImageFont.load_default()
 
-        # Crear QR
+        # Crear QR (convertimos a string todos los valores)
         data = {
             "EE": fila["EE"], "Cod Sondaje": fila["Cod Sondaje"], "Tipo": fila["Tipo"],
             "Target": fila["Target"], "Veta": fila["Veta"], "Nivel": fila["Nivel"],
             "Labor": fila["Labor"], "Categoria": fila["Categoria"],
             "Inclinacion": fila["Inclinacion"], "Azimut": fila["Azimut"]
         }
-        qr = qrcode.make(json.dumps(data, ensure_ascii=False)).convert("RGB")
+        json_str = json.dumps({k: str(v) for k, v in data.items()}, ensure_ascii=False)
+        qr = qrcode.make(json_str).convert("RGB")
 
         # Medidas de texto
         draw_temp = ImageDraw.Draw(Image.new("RGB", (1, 1)))
@@ -83,14 +83,14 @@ if uploaded_excel and uploaded_pdfs:
                 cod = str(row["Cod Sondaje"]).strip()
                 pdf_name = f"{cod} Layout.pdf"
 
-                # Crear contenido QR
+                # Crear contenido QR (convertimos todos los valores a str)
                 data = {
                     "EE": row["EE"], "Cod Sondaje": row["Cod Sondaje"], "Tipo": row["Tipo"],
                     "Target": row["Target"], "Veta": row["Veta"], "Nivel": row["Nivel"],
                     "Labor": row["Labor"], "Categoria": row["Categoria"],
                     "Inclinacion": row["Inclinacion"], "Azimut": row["Azimut"]
                 }
-                json_str = json.dumps(data, ensure_ascii=False)
+                json_str = json.dumps({k: str(v) for k, v in data.items()}, ensure_ascii=False)
                 qr = qrcode.make(json_str).convert("RGB")
 
                 # Texto visible encima del QR
