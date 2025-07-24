@@ -10,6 +10,8 @@ from PIL import Image, ImageDraw, ImageFont
 import tempfile
 import zipfile
 
+font_path = os.path.join("fonts", "arial.ttf")
+
 st.title("🧭 Generador de QR + Inserción en PDFs (DDH) v2.0")
 
 # Subida de archivos
@@ -28,8 +30,7 @@ if uploaded_excel:
     if seleccion:
         fila = df[df["Cod Sondaje"] == seleccion].iloc[0]
         texto = f"{fila['Cod Sondaje']} | {fila['Veta']} | {fila['Nivel']}"
-        font_path = os.path.join("fonts", "arial.ttf")
-        fuente = ImageFont.truetype(font_path, 42) if os.path.exists(font_path) else ImageFont.load_default()
+        fuente = ImageFont.truetype(font_path, 50) if os.path.exists(font_path) else ImageFont.load_default()
 
         # Crear QR (convertimos a string todos los valores)
         data = {
@@ -77,7 +78,7 @@ if uploaded_excel and uploaded_pdfs:
             os.makedirs(output_dir, exist_ok=True)
 
             archivos_zip = []
-            fuente = ImageFont.truetype("Arial.ttf", 28) if os.path.exists("Arial.ttf") else ImageFont.load_default()
+            fuente = ImageFont.truetype(font_path, 50) if os.path.exists(font_path) else ImageFont.load_default()
             pdf_dict = {os.path.basename(pdf.name): pdf for pdf in uploaded_pdfs}
 
             for i, row in df.iterrows():
