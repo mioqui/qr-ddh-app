@@ -11,7 +11,7 @@ import tempfile
 import zipfile
 import io
 
-st.title("🧭 Generador de QR + Inserción en PDFs (DDH)")
+st.title("🧭 Generador de QR + Inserción en PDFs (DDH) v2")
 
 # Subida de archivos
 uploaded_excel = st.file_uploader("📥 Sube tu archivo Excel con la lista de proyectos", type=["xlsx"])
