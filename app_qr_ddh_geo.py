@@ -29,7 +29,7 @@ if uploaded_excel:
         fila = df[df["Cod Sondaje"] == seleccion].iloc[0]
         texto = f"{fila['Cod Sondaje']} | {fila['Veta']} | {fila['Nivel']}"
         font_path = os.path.join("fonts", "arial.ttf")
-        fuente = ImageFont.truetype("Arial.ttf", 42) if os.path.exists("Arial.ttf") else ImageFont.load_default()
+        fuente = ImageFont.truetype("arial.ttf", 42) if os.path.exists("Arial.ttf") else ImageFont.load_default()
 
         # Crear QR (convertimos a string todos los valores)
         data = {
