@@ -12,7 +12,7 @@ import zipfile
 
 font_path = os.path.join("fonts", "arial.ttf")
 
-st.title("🧭 Generador de QR + Inserción en PDFs (DDH) v2.0")
+st.title("Generador de QR + Inserción en PDFs (DDH) v1.0")
 
 # Subida de archivos
 uploaded_excel = st.file_uploader("📥 Sube tu archivo Excel con la lista de proyectos", type=["xlsx"])
