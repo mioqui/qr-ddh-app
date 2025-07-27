@@ -125,7 +125,7 @@ if uploaded_excel and uploaded_pdfs:
                 # Insertar QR
                 doc = fitz.open(pdf_path)
                 page = doc[0]
-                rect = fitz.Rect(600, 1050, 750, 1200)
+                rect = fitz.Rect(600, 1030, 750, 1180)
                 page.insert_image(rect, filename=img_path)
                 final_pdf_path = os.path.join(output_dir, f"{cod} Layout QR.pdf")
                 doc.save(final_pdf_path)
